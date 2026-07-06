@@ -1,0 +1,123 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^3.1",
+        "laravel/framework": "^11.0",
+        "laravel/tinker": "^2.9",
+        "nwidart/laravel-modules": "^13.0",
+        "symfony/http-foundation": "^7.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/breeze": "^2.0",
+        "laravel/pail": "^1.1",
+        "laravel/pint": "^1.13",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.1",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/",
+            "Modules\\Access\\": "Modules/Access/app/",
+            "Modules\\Access\\Database\\Factories\\": "Modules/Access/database/factories/",
+            "Modules\\Access\\Database\\Seeders\\": "Modules/Access/database/seeders/",
+            "Modules\\Audit\\": "Modules/Audit/app/",
+            "Modules\\Audit\\Database\\Factories\\": "Modules/Audit/database/factories/",
+            "Modules\\Audit\\Database\\Seeders\\": "Modules/Audit/database/seeders/",
+            "Modules\\Inventory\\": "Modules/Inventory/app/",
+            "Modules\\Inventory\\Database\\Factories\\": "Modules/Inventory/database/factories/",
+            "Modules\\Inventory\\Database\\Seeders\\": "Modules/Inventory/database/seeders/",
+            "Modules\\Procurement\\": "Modules/Procurement/app/",
+            "Modules\\Procurement\\Database\\Factories\\": "Modules/Procurement/database/factories/",
+            "Modules\\Procurement\\Database\\Seeders\\": "Modules/Procurement/database/seeders/",
+            "Modules\\Rentals\\": "Modules/Rentals/app/",
+            "Modules\\Rentals\\Database\\Factories\\": "Modules/Rentals/database/factories/",
+            "Modules\\Rentals\\Database\\Seeders\\": "Modules/Rentals/database/seeders/",
+            "Modules\\Sales\\": "Modules/Sales/app/",
+            "Modules\\Sales\\Database\\Factories\\": "Modules/Sales/database/factories/",
+            "Modules\\Sales\\Database\\Seeders\\": "Modules/Sales/database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Modules\\Access\\Tests\\": "Modules/Access/tests/",
+            "Modules\\Audit\\Tests\\": "Modules/Audit/tests/",
+            "Modules\\Inventory\\Tests\\": "Modules/Inventory/tests/",
+            "Modules\\Procurement\\Tests\\": "Modules/Procurement/tests/",
+            "Modules\\Rentals\\Tests\\": "Modules/Rentals/tests/",
+            "Modules\\Sales\\Tests\\": "Modules/Sales/tests/"
+        }
+    },
+    "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan serve"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        },
+        "merge-plugin": {
+            "include": [
+                "Modules/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": true,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

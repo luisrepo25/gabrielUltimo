@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ferreteria-app
+    ports:
+      - "8000:8000"
+      - "5173:5173"
+    # Laravel automatically reads the .env file in the root directory.
+    # We do not override DB variables here so it respects the Aiven production config.
+    # volumes:
+    #  - ./:/app
+    networks:
+      - ferreteria-network
+    # Comando por defecto para desarrollo: artisan serve, pero asegurando que composer install se ejecute primero si es necesario
+    command: sh -c "if [ ! -d 'vendor' ]; then composer install; fi && php artisan serve --host=0.0.0.0 --port=8000"
+
+networks:
+  ferreteria-network:
+    driver: bridge
