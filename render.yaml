@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: ferreteria-app
+    env: php
+    plan: free
+    buildCommand: "composer install --no-dev --optimize-autoloader"
+    envVars:
+      - key: WEB_ROOT
+        value: public
+      - key: APP_NAME
+        value: Ferreteria
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        # Render inyectará la URL automáticamente
+        value: https://ferreteria-app.onrender.com
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: mysql-376e4507-luisclasesuagrm-141c.d.aivencloud.com
+      - key: DB_PORT
+        value: "20500"
+      - key: DB_DATABASE
+        value: defaultdb
+      - key: DB_USERNAME
+        value: avnadmin
+      - key: DB_PASSWORD
+        sync: false
