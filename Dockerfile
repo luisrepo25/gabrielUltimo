@@ -45,5 +45,5 @@ RUN chown -R laravel:laravel /app
 EXPOSE 8000
 EXPOSE 5173
 
-# CMD will be overridden by docker-compose, but we set a default
-CMD ["php", "-a"]
+# Start Laravel server using Render's PORT environment variable
+CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
